@@ -7,12 +7,20 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 	
-	@GetMapping(value="/login.do")
+	@GetMapping("/login.do")
 	public ModelAndView loginView() {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("login/loginView");
 		
 		return view;
+	}
+	
+	@GetMapping("/login/proc.do")
+	@ResponseBody
+	public loginProc(@RequestParam("memId") String memId,
+					 @RequestParam("memPassword") String memPassword,
+					 HttpServletRequest request) {
+		
 	}
 
 }

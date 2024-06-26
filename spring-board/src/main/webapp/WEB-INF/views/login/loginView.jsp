@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,12 +98,12 @@
 					<input type="text" class="txt-field" id="memId" name="memId">
 				</li>
 				<li>
-					<label for="memPasswd">비밀번호 : </label>
-					<input type="password" class="txt-field" id="memPasswd" name="memPasswd">
+					<label for="memPassword">비밀번호 : </label>
+					<input type="password" class="txt-field" id="memPassword" name="memPassword">
 				</li>
 				<li>
 					<div class="btn-area">
-						<button type="button" class="btn btn-ok">로그인</button>
+						<button type="button" class="btn btn-ok" onclick="goLogin();">로그인</button>
 						<button type="button" class="btn btn-join">회원가입</button>
 					</div>
 				</li>
@@ -111,4 +111,36 @@
 		</div>
 	</main>
 </body>
+<script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
+	function validate() {
+		
+		const memId = $('#memId');
+		const memPassword = document.querySelector('#memPassword');
+		
+		if($.trim(memId.val()).length === 0) {
+			alert('Enter your ID.');
+			return false;
+		}
+		
+		if($.trim(memPassword.value).length === 0) {
+			alert('Enter your Password.');
+			memPassword.focus();
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
+	function goLogin() {
+		
+		if(validate()) {
+			alert('Welcome !');
+		}
+		
+	}
+
+</script>
 </html>
