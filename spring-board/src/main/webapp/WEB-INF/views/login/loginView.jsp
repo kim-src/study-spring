@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding = "UTF-8" session = "false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -117,14 +118,14 @@
 	function validate() {
 		
 		const memId = $('#memId');
-		const memPassword = document.querySelector('#memPassword');
+		const memPassword = $('#memPassword');
 		
 		if($.trim(memId.val()).length === 0) {
 			alert('Enter your ID.');
 			return false;
 		}
 		
-		if($.trim(memPassword.value).length === 0) {
+		if($.trim(memPassword.val()).length === 0) {
 			alert('Enter your Password.');
 			memPassword.focus();
 			return false;
@@ -137,7 +138,35 @@
 	function goLogin() {
 		
 		if(validate()) {
-			alert('Welcome !');
+			
+			const dataParm = {
+					memId : $('#memId').val(),
+					memPassword : $('#memPassword').val()
+			}
+			
+			// 로그인 처리(비동기 처리용 에이젝스 활용)
+			// 에이젝스가 성공하면 done이 붙고 콜백함수 실행(파라미터 1개)
+			// 에이젝스가 실패하면 fail이 붙고 콜백함수 실행(파라미터 3개)(보통 서버에서 오류)
+			// 파라미터는 Object 형태로 설정
+			$.ajax({
+				
+				url : '/login/proc.do',
+				type : 'get',
+				dataType : 'json',
+				data : dataParm
+				
+			}).done(function(resp) {
+				
+				if(resp.resultCode === 200) {
+					alert('Welcome !');
+				} else {
+					alert('Please Check your ID or Password.');
+				}
+				
+			}).fail(function(xhr, status, error) {
+				console.log('Server Error');
+			});
+			
 		}
 		
 	}

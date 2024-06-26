@@ -10,7 +10,7 @@
 				mem_gender
 		from members
 		where	mem_id = #{memId}
-				mem_password = #{memPassword}
+		  AND 	mem_password = #{memPassword}
 	
 	</select>
 
