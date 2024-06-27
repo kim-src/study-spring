@@ -1,0 +1,2 @@
+안녕하세요 자바를 배워요
+hi we are learing java!
