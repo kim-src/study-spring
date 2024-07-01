@@ -2,9 +2,7 @@ package kr.com.web.user.service;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.stereotype.Service;
-
 import kr.com.web.user.mapper.LoginMapper;
 import kr.com.web.user.vo.UserVO;
 import lombok.RequiredArgsConstructor;

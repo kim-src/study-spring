@@ -2,7 +2,6 @@ package kr.com.web.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import kr.com.web.user.mapper.LoginMapper;
 import lombok.RequiredArgsConstructor;
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.com.web.board.mapper.NoticeMapper">
+
+	<resultMap id="noticeMap" type="notice">
+		<result property="noId" column="no_id"/>
+		<result property="title" column="title"/>
+		<result property="contents" column="contents"/>
+		<result property="readCnt" column="read_cnt"/>
+		<association property="file" javaType="noticeFile">
+			<result property="fileId" column="file_id"/>
+			<result property="fileName" column="file_name"/>
+			<result property="fileStoredName" column="file_stored_name"/>
+			<result property="filePath" column="file_path"/>
+		</association>
+	</resultMap>
+	
+	<select id="getNoticeTotal" parameterType="map" resultType="int">
+		select count(*) as cnt
+		from notice
+	</select>
+	<select id="getNoticeList" parameterType="map" resultType="noticeList">
+		select  no_id,
+				title,
+				contents,
+				writer,
+				read_cnt,
+				date_format(create_date, '%Y-%m-%d %H:%i:%s') as create_date,
+				case when update_date is null then ''
+					 when update_date is not null
+					 then date_format(create_date, '%Y-%m-%d %H:%i:%s')
+				end as update_date
+		from notice
+		order by no_id desc
+		limit #{start}, #{end}
+	</select>
+	
+	<select id="getNotice" parameterType="map" resultMap="noticeMap">
+		select  n.no_id,
+				n.title,
+				n.contents,
+				n.writer,
+				n.read_cnt,
+				f.file_id,
+				f.file_name,
+				f.file_stored_name,
+				f.file_path
+		from notice n
+			left join notice_file f on n.no_id = f.no_id
+		where n.no_id = #{noId}
+	</select>
+	
+	<update id="updateReadCnt" parameterType="map">
+		update notice
+		set read_cnt = read_cnt + 1
+		where no_id = #{noId}
+	</update>
+	
+</mapper>
