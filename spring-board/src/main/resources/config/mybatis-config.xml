@@ -10,6 +10,7 @@
    		<typeAlias type="java.util.Map" alias="map"/>
    		<typeAlias type="kr.com.web.board.vo.NoticeVO$NoticeList" alias="noticeList"/>
    		<typeAlias type="kr.com.web.board.vo.NoticeVO$Notice" alias="notice"/>
+   		<typeAlias type="kr.com.web.board.vo.NoticeVO$NoticeReq" alias="noticeReq"/>
    		<typeAlias type="kr.com.web.board.vo.NoticeFileVO" alias="noticeFile"/>
    </typeAliases>
 </configuration>

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,6 +66,34 @@ public class NoticeController {
 		}
 		finally {
 			view.addObject("notice", notice);
+		}
+		
+		return view;
+	}
+	
+	@GetMapping("/write.do")
+	public ModelAndView writeView(@RequestParam(name="nowPage") int nowPage) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("board/boardWrite");
+		// key-value 쌍으로 데이터 추가
+		view.addObject("nowPage", nowPage);
+		return view;
+	}
+	
+	@PostMapping("/add.do")
+	// writeNotice의 파라미터에 @ModelAttribute 생략 가능
+	public ModelAndView writeNotice(NoticeVO.NoticeReq newNotice) {
+		ModelAndView view = new ModelAndView();
+		// 성공하면 list 페이지로 이동
+		view.setViewName("redirect:/notice/list.do");
+		
+		try {
+			noticeService.addNotice(newNotice);
+		}
+		// 실패하면 error 페이지로 이동
+		catch(Exception e) {
+			e.printStackTrace();
+			view.setViewName("error/writeError");
 		}
 		
 		return view;

@@ -124,6 +124,11 @@
 <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
 <script>
 
+	function goWrite() {
+		const nowPage = $('#nowPage').val();
+		location.href = '/notice/write.do?nowPage=' + nowPage;
+	}
+
 	function movePage(nowPage) {
 		// 페이지 이동
 		location.href = '/notice/list.do?nowPage=' + nowPage;

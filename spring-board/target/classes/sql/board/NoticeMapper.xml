@@ -56,4 +56,20 @@
 		where no_id = #{noId}
 	</update>
 	
+	<insert id="addNotice"
+			parameterType="noticeReq"
+			useGeneratedKeys="true"
+			keyProperty="noId">
+			
+			insert into notice(title, contents, writer)
+				values(#{title}, #{contents}, #{writer})
+	</insert>
+
+	<insert id="addNoticeFile"
+			parameterType="noticeFile">
+			
+			insert into notice_file(no_id, file_name, file_stored_name, file_path)
+				values(#{noId}, #{fileName}, #{fileStoredName}, #{filePath})
+	</insert>
+	
 </mapper>

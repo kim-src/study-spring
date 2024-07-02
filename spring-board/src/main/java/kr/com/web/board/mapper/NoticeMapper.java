@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import kr.com.web.board.vo.NoticeFileVO;
 import kr.com.web.board.vo.NoticeVO;
 
 @Mapper
@@ -19,4 +20,8 @@ public interface NoticeMapper {
 	NoticeVO.Notice getNotice(@Param("noId") int noId) throws Exception;
 	// 조회수 증가
 	void updateReadCnt(@Param("noId") int noId) throws Exception;
+	// 게시글 저장
+	void addNotice(NoticeVO.NoticeReq newNotice) throws Exception;
+	// 게시글 파일 저장
+	void addNoticeFile(NoticeFileVO noticeFile) throws Exception;
 }

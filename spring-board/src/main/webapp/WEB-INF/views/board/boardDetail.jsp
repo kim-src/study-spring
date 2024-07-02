@@ -23,18 +23,19 @@
 		margin: 0 auto;
 	}
 	
-	.table {
+	.tables {
 		width: 100%;
 		border: 1px solid black;
 		border-collapse: collapse;
+		margin-bottom: 20px;
 	}
 	
-	.table th, td {
+	.tables th, td {
 		border: 1px solid black;
 		height: 40px;
 	}
 	
-	.table td {
+	.tables td {
 		text-align: left;
 		padding: 10px;
 	}
@@ -58,7 +59,7 @@
 			<div class="text-title">
 				<h3>글 내용 보기</h3>
 			</div>
-			<table class="table">
+			<table class="tables">
 				<colgroup>
 					<col width="20%">
 					<col width="80%">
@@ -71,6 +72,11 @@
 					<tr>
 						<th>글제목</th>
 						<td>${notice.title}</td>
+					</tr>
+					<tr>
+					<tr>
+						<th>조회수</th>
+						<td>${notice.readCnt}</td>
 					</tr>
 					<tr>
 						<th>첨부파일</th>
@@ -93,13 +99,21 @@
 					</tr>
 				</tbody>
 			</table>
+			<input type="hidden" name="nowPage" id="nowPage" value="${nowPage}">
 			<div>
-				<button>수정</button>
-				<button>삭제</button>
-				<button>목록</button>
+				<button type="button" class="btn btn-primary">수정</button>
+				<button type="button" class="btn btn-danger">삭제</button>
+				<button type="button" class="btn btn-success" onclick="goList();">목록</button>
 			</div>
 		</div>
 	</section>
 </body>
 <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
+	function goList() {
+		location.href = "/notice/list.do?nowPage=" + $('#nowPage').val();
+	}
+
+</script>
 </html>

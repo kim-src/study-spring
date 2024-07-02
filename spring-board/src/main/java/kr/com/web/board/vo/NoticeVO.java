@@ -2,6 +2,8 @@ package kr.com.web.board.vo;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 public class NoticeVO {
@@ -37,6 +39,19 @@ public class NoticeVO {
 		private int readCnt;
 		private String createDate;
 		private String updateDate;
+		
+	}
+	
+	@Data
+	// Req = Request
+	public static class NoticeReq {
+
+		private int noId;
+		private String title;
+		private String contents;
+		private String writer;
+		// MultipartFile = binary 파일을 받아줄 수 있는 객체
+		private MultipartFile file;
 		
 	}
 
