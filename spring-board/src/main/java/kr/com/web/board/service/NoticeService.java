@@ -155,5 +155,72 @@ public class NoticeService {
 	      return fileVO;
 	      
 	   }
+	
+	public NoticeFileVO getFileInfo(int fileId) throws Exception {
+		return noticeMapper.getFileInfo(fileId);
+	}
+	
+	// 바꾸기
+	@Transactional
+	public void updateNotice(NoticeVO.NoticeReq newNotice) throws Exception {
+    	// 기존 정보 가져오기
+		NoticeVO.Notice notice = this.getNoticeInfo(newNotice.getNoId());
+		
+		notice.setTitle(newNotice.getTitle());
+		notice.setContents(newNotice.getContents());
+		
+		int result = noticeMapper.updateNotice(notice);
+		
+		if(result < 1) {
+			throw new Exception("에러 발생");
+		}
+		
+		if(newNotice.getFile() != null && !newNotice.getFile().isEmpty()) {
+			// 기존 파일이 존재한다면 삭제
+			if(notice.getFile() != null) {
+				// 데이터베이스 삭제
+				noticeMapper.deleteNoticeFile(notice.getFile().getNoId());
+				// 물리적인 파일 삭제
+				this.deleteFile(notice.getFile());
+			}
+			// 신규 파일 업로드
+			NoticeFileVO fileVO = this.uploadFile(newNotice.getFile(), newNotice.getNoId());
+			// 파일 정보 삽입
+			noticeMapper.addNoticeFile(fileVO);
+		}
+	}
+	
+    @Transactional
+    public void deleteNotice(int noId) throws Exception {
+    	// 기존 정보 가져오기
+    	NoticeVO.Notice notice = noticeMapper.getNotice(noId);
+       //파일 삭제 
+       if(notice != null) {
+    	  noticeMapper.deleteNoticeFile(noId);
+    	  noticeMapper.deleteNotice(noId);
+          deleteFile(notice.getFile());
+       }
+    }
+    
+    // 기존 게시글 정보 가져오기
+    public NoticeVO.Notice getNoticeInfo(int noId) throws Exception {
+		return noticeMapper.getNotice(noId);
+	}
+    
+    //파일 삭제 공통화
+	public void deleteFile(NoticeFileVO file) throws Exception {
+       
+       if(file != null) {
+    	   //파일을 지운다
+    	   String filePath = file.getFilePath() + file.getFileStoredName();
+    	   //파일 객체 만들기
+    	   File f = new File(filePath);
+    	   //존재하면 지운다. 
+    	   if(f.exists()) {
+    		   // log.info("======= 삭제되는 파일 : {} ========= ",   file.getOriginFileName());
+    		   f.delete();
+    	   }
+       }
+    }
 
 }

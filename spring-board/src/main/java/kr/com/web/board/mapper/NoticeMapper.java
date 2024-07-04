@@ -24,4 +24,13 @@ public interface NoticeMapper {
 	void addNotice(NoticeVO.NoticeReq newNotice) throws Exception;
 	// 게시글 파일 저장
 	void addNoticeFile(NoticeFileVO noticeFile) throws Exception;
+	// 파일 정보 가져오기
+	NoticeFileVO getFileInfo(@Param("fileId") int fileId) throws Exception;
+	// 게시글 내용 수정
+	int updateNotice(NoticeVO.Notice notice) throws Exception;
+	// 게시글 첨부파일 삭제
+	int deleteNoticeFile(@Param("fileId") int fileId) throws Exception;
+	// 게시글 내용 삭제
+	int deleteNotice(@Param("noId") int noId) throws Exception;
+	
 }

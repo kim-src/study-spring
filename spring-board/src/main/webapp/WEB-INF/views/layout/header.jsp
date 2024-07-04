@@ -60,13 +60,31 @@
 					<a href="javascript:void(0);" class="menu-link">HOME</a>
 				</li>
 				<li class="menu-item rank1">
-					<a href="javascript:void(0);" class="menu-link">BOARD</a>
+					<a href="/notice/list.do" class="menu-link">BOARD</a>
 				</li>
 				<li class="menu-item rank2">
-					<a href="javascript:void(0);" class="menu-link">LOGIN</a>
+					<!-- sessionScope = 세션 확인 -->
+					<c:if test="${sessionScope.userInfo == null}">
+						<a href="/login.do" class="menu-link">LOGIN</a>
+					</c:if>
+					<c:if test="${sessionScope.userInfo != null}">
+						<a href="/logout.do" class="menu-link">LOGOUT</a>
+					</c:if>
 				</li>
 			</ul>
 		</nav>
 	</header>
 </body>
+<script>
+	
+	/* a 태그로 이동 위치 바로 부여 가능 */
+	/* function goList() {
+		location.href = "/notice/list.do"
+	}
+
+	function enterLoginPage() {
+		location.href = "/login.do";
+	} */
+
+</script>
 </html>

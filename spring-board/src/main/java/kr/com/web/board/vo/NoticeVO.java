@@ -19,14 +19,15 @@ public class NoticeVO {
 	}
 	
 	@Data
-	public static class Notice {
-	
+	// Req = Request
+	public static class NoticeReq {
+
 		private int noId;
 		private String title;
 		private String contents;
 		private String writer;
-		private int readCnt;
-		private NoticeFileVO file;
+		// MultipartFile = binary 파일을 받아줄 수 있는 객체
+		private MultipartFile file;
 		
 	}
 	
@@ -43,16 +44,15 @@ public class NoticeVO {
 	}
 	
 	@Data
-	// Req = Request
-	public static class NoticeReq {
-
+	public static class Notice {
+	
 		private int noId;
 		private String title;
 		private String contents;
 		private String writer;
-		// MultipartFile = binary 파일을 받아줄 수 있는 객체
-		private MultipartFile file;
+		private int readCnt;
+		private NoticeFileVO file;
 		
 	}
-
+	
 }

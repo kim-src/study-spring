@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시글 보기</title>
+<title>게시글 정보</title>
+<link rel="stylesheet" href="/webjars/bootstrap/4.6.2/css/bootstrap.min.css">
 <style>
 	body {
 		margin: 0;
@@ -50,7 +51,6 @@
 		padding: 20px;
 	}
 </style>
-<link rel="stylesheet" href="/webjars/bootstrap/4.6.2/css/bootstrap.min.css">
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"></jsp:include>
@@ -81,28 +81,29 @@
 					<tr>
 						<th>첨부파일</th>
 						<td>
-							<c:if test="${notice.file != null}">
-								<a href="javascript:void(0)" onclick="download(${notice.file.fileId})">
+							<c:if test="${notice.file ne null}">
+								<a href="javascript:void(0)" onclick="downFile(${notice.file.fileId})">
 									${notice.file.fileName}
 								</a>
 							</c:if>
-							<c:if test="${notice.file == null}">
-								<div>첨부파일 없음</div>
+							<c:if test="${notice.file eq null}">
+								첨부파일 없음
 							</c:if>
 						</td>
 					</tr>
 					<tr>
 						<th>글 내용</th>
 						<td class="text-contents">
-							<div>${notice.contents}</div>
+							${notice.contents}
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			<input type="hidden" name="nowPage" id="nowPage" value="${nowPage}">
+			<input type="hidden" id="nowPage" name="nowPage" value="${nowPage}">
+			<input type="hidden" id="noId" name="noId" value="${notice.noId}">
 			<div>
-				<button type="button" class="btn btn-primary">수정</button>
-				<button type="button" class="btn btn-danger">삭제</button>
+				<button type="button" class="btn btn-primary" onclick="writeNotice();">수정</button>
+				<button type="button" class="btn btn-danger" onclick="deleteNotice();">삭제</button>
 				<button type="button" class="btn btn-success" onclick="goList();">목록</button>
 			</div>
 		</div>
@@ -110,9 +111,27 @@
 </body>
 <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
 <script>
+	
+	function writeNotice() {
+		const nowPage = $('#nowPage').val(); 
+		const noId = $('#noId').val();
+		location.href = '/notice/update/view.do?nowPage=' + nowPage + '&noId=' + noId;
+	}
+	
+	function deleteNotice() {
+		const nowPage = $('#nowPage').val(); 
+		const noId = $('#noId').val();
+		if(confirm('정말 삭제하시겠습니까?')) {
+			location.href = '/notice/delete.do?nowPage=' + nowPage + '&noId=' + noId;
+		}
+	}
 
 	function goList() {
 		location.href = "/notice/list.do?nowPage=" + $('#nowPage').val();
+	}
+	
+	function downFile(fileId) {
+		location.href = "/notice/file/down.do?fileId=" + fileId;
 	}
 
 </script>

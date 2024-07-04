@@ -9,9 +9,11 @@
 <body>
 	<div id="msg"></div>
 </body>
+<script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
 <script>
 	let count = 5;
 	let timer = '';
+	let msg = '';
 	
 	function error() {
 		
@@ -19,17 +21,16 @@
 			clearInterval(timer);
 			location.href = "/notice/list.do";
 		} else {
+			msg = "서비스 동작에 실패했습니다. " + count + "초 후 페이지 이동합니다.";
 			count--;
-			tiemr = setInterval(error, 1000);
 		}
 		
-		let msg = '파일 등록에 실패했습니다. ${count}초 후 페이지 이동합니다.';
 		$('#msg').empty();
 		$('#msg').append(msg);
 		
 	}
 	
-	error();
+	timer = setInterval(error, 1000);
 	
 </script>
 </html>

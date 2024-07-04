@@ -29,13 +29,18 @@
   </beans:bean>
   
    
-<!--     <interceptors>
+	<interceptors>
         <interceptor>
-            <mapping path="/create/*" />
-            <exclude-mapping path="/login/*"/>
-            <beans:bean class="kr.exam.com.interceptor.LoginInterceptor"></beans:bean>            
+        	<!-- * 기호 개수에 따라 진입 깊이 상이 -->
+            <mapping path="/notice/**" />            
+            <exclude-mapping path="/login/proc.do"/>
+            <exclude-mapping path="/login.do"/>
+            <!-- list, detail은 로그인 없이 진입 가능 -->
+            <exclude-mapping path="/notice/list.do"/>
+            <exclude-mapping path="/notice/detail.do"/>
+            <beans:bean class="kr.com.web.interceptor.LoginInterceptor"></beans:bean>            
         </interceptor>        
-    </interceptors> -->
+    </interceptors>
 
 
 </beans:beans>

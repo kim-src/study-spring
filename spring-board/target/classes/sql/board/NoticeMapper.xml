@@ -72,4 +72,38 @@
 				values(#{noId}, #{fileName}, #{fileStoredName}, #{filePath})
 	</insert>
 	
+	<select id="getFileInfo" parameterType="map" resultType="noticeFile">
+	
+		select * from notice_file where file_id = #{fileId}	
+	
+	</select>
+	
+	<update id="updateNotice" parameterType="notice">
+	
+		update notice
+		<set>
+			<if test="title neq null and title neq '' ">
+				title = #{title},
+			</if>
+			<if test="contents neq null and contents neq '' ">
+				contents = #{contents},
+			</if>
+				update_date = now()
+		</set>
+		where no_id = #{noId}
+	
+	</update>
+	
+	<delete id="deleteNoticeFile" parameterType="map">
+	
+		delete from notice_file where file_id = #{fileId}
+	
+	</delete>
+	
+	<delete id="deleteNotice" parameterType="int">
+	
+		delete from notice where no_id = #{noId}
+	
+	</delete>
+	
 </mapper>

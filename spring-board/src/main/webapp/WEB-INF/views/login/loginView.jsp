@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>login</title>
+
 <style>
 	body {
 		margin: 0px;
@@ -86,6 +87,10 @@
 	.btn.btn-join {
 		background-color: #20b2aa;
 	}
+	
+	.btn.btn-board {
+		background-color: green;
+	}
 </style>
 </head>
 <body>
@@ -105,6 +110,7 @@
 					<div class="btn-area">
 						<button type="button" class="btn btn-ok" onclick="goLogin();">로그인</button>
 						<button type="button" class="btn btn-join">회원가입</button>
+						<button type="button" class="btn btn-board" onclick="goList();">게시판</button>
 					</div>
 				</li>
 			</ul>
@@ -157,7 +163,7 @@
 			}).done(function(resp) {
 				
 				if(resp.resultCode === 200) {
-					alert('Welcome !');
+					location.href = "/notice/list.do";
 				} else {
 					alert('Please Check your ID or Password.');
 				}
@@ -169,6 +175,23 @@
 		}
 		
 	}
+	
+	function goList() {
+		location.href = "/notice/list.do"	
+	}
+	
+	// 자동 실행 함수
+	// Enter 입력으로 로그인 하는 방법
+	$(document).ready(function() {
+		$('#memPassword').on('keyup', function(e) {
+			// Enter 엔터키 = 13
+			if(e.keyCode === 13) {
+				// 엔터로 무조건 로그인 시도가 가능할지
+				// validate();
+				goLogin();
+			}
+		});
+	});
 
 </script>
 </html>

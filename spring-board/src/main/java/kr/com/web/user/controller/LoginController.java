@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.com.web.user.service.LoginService;
@@ -56,6 +57,20 @@ public class LoginController {
 		
 		return resultMap;
 		
+	}
+	
+	@GetMapping("/logout.do")
+	public ModelAndView loginOut(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("redirect:/login.do");
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("userInfo") != null) {
+			session.removeAttribute("userInfo");
+		}
+		
+		return view;
 	}
 
 }
